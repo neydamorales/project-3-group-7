@@ -1,0 +1,35 @@
+/* Coolors Exported Palette - https://coolors.co/99ddc8-95bf74-659b5e-556f44-283f3b */
+
+- Tailwind
+
+{ 'tiffany_blue': { DEFAULT: '#99ddc8', 100: '#13382c', 200: '#257058', 300: '#38a884', 400: '#60caa8', 500: '#99ddc8', 600: '#ace3d2', 700: '#c1eadd', 800: '#d6f1e9', 900: '#eaf8f4' }, 'pistachio': { DEFAULT: '#95bf74', 100: '#1d2a13', 200: '#3a5427', 300: '#577e3a', 400: '#74a84d', 500: '#95bf74', 600: '#a9cc8f', 700: '#bfd8ab', 800: '#d4e5c7', 900: '#eaf2e3' }, 'asparagus': { DEFAULT: '#659b5e', 100: '#141f13', 200: '#293e26', 300: '#3d5d39', 400: '#527c4c', 500: '#659b5e', 600: '#84b07e', 700: '#a3c49e', 800: '#c1d7be', 900: '#e0ebdf' }, 'fern_green': { DEFAULT: '#556f44', 100: '#11160e', 200: '#222c1b', 300: '#334229', 400: '#445936', 500: '#556f44', 600: '#75985d', 700: '#97b384', 800: '#bacdad', 900: '#dce6d6' }, 'dark_slate_gray': { DEFAULT: '#283f3b', 100: '#080c0c', 200: '#101917', 300: '#182523', 400: '#20322f', 500: '#283f3b', 600: '#487069', 700: '#6aa097', 800: '#9bbfb9', 900: '#cddfdc' } }
+
+- CSV
+
+99ddc8,95bf74,659b5e,556f44,283f3b
+
+- With #
+
+#99ddc8, #95bf74, #659b5e, #556f44, #283f3b
+
+- Array
+
+["99ddc8","95bf74","659b5e","556f44","283f3b"]
+
+- Object
+
+{"Tiffany Blue":"99ddc8","Pistachio":"95bf74","Asparagus":"659b5e","Fern green":"556f44","Dark slate gray":"283f3b"}
+
+- Extended Array
+
+[{"name":"Tiffany Blue","hex":"99ddc8","rgb":[153,221,200],"cmyk":[31,0,10,13],"hsb":[161,31,87],"hsl":[161,50,73],"lab":[83,-26,3]},{"name":"Pistachio","hex":"95bf74","rgb":[149,191,116],"cmyk":[22,0,39,25],"hsb":[94,39,75],"hsl":[94,37,60],"lab":[73,-27,33]},{"name":"Asparagus","hex":"659b5e","rgb":[101,155,94],"cmyk":[35,0,39,39],"hsb":[113,39,61],"hsl":[113,24,49],"lab":[59,-30,26]},{"name":"Fern green","hex":"556f44","rgb":[85,111,68],"cmyk":[23,0,39,56],"hsb":[96,39,44],"hsl":[96,24,35],"lab":[44,-18,21]},{"name":"Dark slate gray","hex":"283f3b","rgb":[40,63,59],"cmyk":[37,0,6,75],"hsb":[170,37,25],"hsl":[170,22,20],"lab":[25,-10,0]}]
+
+- XML
+
+<palette>
+  <color name="Tiffany Blue" hex="99ddc8" r="153" g="221" b="200" />
+  <color name="Pistachio" hex="95bf74" r="149" g="191" b="116" />
+  <color name="Asparagus" hex="659b5e" r="101" g="155" b="94" />
+  <color name="Fern green" hex="556f44" r="85" g="111" b="68" />
+  <color name="Dark slate gray" hex="283f3b" r="40" g="63" b="59" />
+</palette>
