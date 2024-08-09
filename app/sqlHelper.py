@@ -34,6 +34,7 @@ class SQLHelper():
     #################################################
 
     # USING RAW SQL
+    # Bar Graph for houses with a garage
     def get_bar_garage(self, min_year_built):
 
 
@@ -57,27 +58,24 @@ class SQLHelper():
         data = df.to_dict(orient="records")
         return(data)
 
-    def get_pie(self, min_attempts, region):
+    # Bar Graph for houses with heat
+    def get_bar_heat(self, min_year_built):
 
-        # switch on user_region
-        if region == 'All':
-            where_clause = "and 1=1"
-        else:
-            where_clause = f"and region = '{region}'"
 
-        # build the query
         query = f"""
             SELECT
-                name,
-                region,
-                launch_attempts
+                homeType,
+                COUNT(*) AS total_houses,
+                SUM(CASE WHEN hasHeating = 1 THEN 1 ELSE 0 END) AS houses_with_heating,
+                (SUM(CASE WHEN hasHeating = 1 THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS percent_with_heating
             FROM
-                launchpads
+                austin_housing
             WHERE
-                launch_attempts >= {min_attempts}
-                {where_clause}
+                yearBuilt >= {min_year_built}
+            GROUP BY
+                homeType
             ORDER BY
-                launch_attempts DESC;
+                percent_with_heating DESC;
         """
 
         df = pd.read_sql(text(query), con = self.engine)
