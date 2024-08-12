@@ -67,15 +67,12 @@ function make_pie(filtered_data) {
   Plotly.newPlot("pie_chart", data, layout);
 }
 
-function make_bar(filtered_data) {
-  // sort values
-  filtered_data.sort((a, b) => (b.launch_attempts - a.launch_attempts));
+function make_bar_garage(filtered_data) {
 
   // extract the x & y values for our bar chart
-  let bar_x = filtered_data.map(x => x.name);
-  let bar_text = filtered_data.map(x => x.full_name);
-  let bar_y1 = filtered_data.map(x => x.launch_attempts);
-  let bar_y2 = filtered_data.map(x => x.launch_successes);
+  let bar_x = get_bar_garage.map(x => x.name);
+  let bar_text = get_bar_garage.map(x => x.homeType);
+  let bar_y = get_bar_garage.map(x => x.percent_with_garage);
 
   // Trace1 for the Launch Attempts
   let trace1 = {
