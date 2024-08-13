@@ -1,11 +1,10 @@
 function do_work() {
   // extract user input
-  let min_launches = d3.select("#launch_filter").property("value");
-  min_launches = parseInt(min_launches);
-  let region = d3.select("#region_filter").property("value");
+  let min_year_built = d3.select("#launch_filter").property("value");
+  min_year_built = parseInt(min_year_built);
 
   // We need to make a request to the API
-  let url = `/api/v1.0/get_dashboard/${min_launches}/${region}`;
+  let url = `/api/v1.0/get_dashboard/${min_launches}`;
   d3.json(url).then(function (data) {
 
     // create the graphs
