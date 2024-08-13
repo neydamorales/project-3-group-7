@@ -29,7 +29,7 @@ function createMap(data) {
 
     // make marker
     let marker = L.marker(point);
-    let popup = `<h1>${row.city}</h1><hr><h2>${row.min_year_built}</h2>`;
+    let popup = `<h1>${row.city}</h1><hr><h2>${row.yearBuilt}</h2>`;
     marker.bindPopup(popup);
     markers.addLayer(marker);
 
@@ -66,7 +66,7 @@ function createMap(data) {
 
   let myMap = L.map("map", {
     center: [30.2672, -97.7431],
-    zoom: 5,
+    zoom: 10,
     layers: [street, markers]
   });
 
