@@ -34,6 +34,21 @@ class SQLHelper():
     #################################################
 
     # USING RAW SQL
+    def get_hoa_raw(self, min_year_built):
+
+        # Build the query
+        query = f"""
+                SELECT COUNT(*), city, yearBuilt, SUM(hasAssociation) AS total
+                FROM austin_housing
+                WHERE hasAssociation = 1 AND yearBuilt >= {min_year_built}
+                GROUP BY city, yearBuilt;
+        """
+
+        # Execute the query
+        hoa_df = pd.read_sql(text(query), con = self.engine)
+        data = hoa_df.to_dict(orient="records")
+        return(data)
+    
     # Bar Graph for houses with a garage
     def get_bar_garage(self, min_year_built):
 

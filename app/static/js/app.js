@@ -11,62 +11,52 @@ function do_work() {
     // create the graphs
     make_bar1(data.bar_garage);
     make_bar2(data.bar_heat);
-    make_pie(data.pie_data);
-    make_table(data.table_data)
+    make_line_graph(data.line_hoa)
   });
 }
+/////////////
+function make_line_graph(line_hoa) {
 
-function make_table(filtered_data) {
-  // select table
-  let table = d3.select("#data_table");
-  let table_body = table.select("tbody");
-  table_body.html(""); // destroy any existing rows
+  // Create a map to store traces for each city
+  let traces = {};
 
-  // create table
-  for (let i = 0; i < filtered_data.length; i++){
-    // get data row
-    let data_row = filtered_data[i];
+  // Process the data to create traces
+  line_hoa.forEach(line_hoa => {
+    let city = line_hoa.city;
+    let year = line_hoa.yearBuilt;
+    let total = line_hoa.total;
 
-    // creates new row in the table
-    let row = table_body.append("tr");
-    row.append("td").text(data_row.name);
-    row.append("td").text(data_row.full_name);
-    row.append("td").text(data_row.region);
-    row.append("td").text(data_row.latitude);
-    row.append("td").text(data_row.longitude);
-    row.append("td").text(data_row.launch_attempts);
-    row.append("td").text(data_row.launch_successes);
-    row.append("td").text(data_row.launch_attempts - data_row.launch_successes);
-  }
-}
+    // Initialize trace if it does not exist
+    if (!traces[city]) {
+      traces[city] = { x: [], y: [], name: city, mode: 'lines+markers', type: 'scatter' };
+    }
 
-function make_pie(filtered_data) {
-  // sort values
-  filtered_data.sort((a, b) => (b.launch_attempts - a.launch_attempts));
+    // Push data points for each city
+    traces[city].x.push(year);
+    traces[city].y.push(total);
+  });
 
-  // extract data for pie chart
-  let pie_data = filtered_data.map(x => x.launch_attempts);
-  let pie_labels = filtered_data.map(x => x.name);
+  // Convert the traces object to an array of trace objects
+  let traceArray = Object.values(traces);
 
-  let trace1 = {
-    values: pie_data,
-    labels: pie_labels,
-    type: 'pie',
-    hoverinfo: 'label+percent+name',
-    hole: 0.4,
-    name: "Attempts"
-  }
-
-  // Create data array
-  let data = [trace1];
-
-  // Apply a title to the layout
+  // Layout configuration for the plot
   let layout = {
-    title: "SpaceX Launch Attempts",
-  }
+    title: "Sum of Houses with HOA by Year Built and City",
+    xaxis: {
+      title: "Year Built",
+      tickformat: 'd'  // Format x-axis as integers (years)
+    },
+    yaxis: {
+      title: "Number of Houses with HOA"
+    }
+  };
 
-  Plotly.newPlot("pie_chart", data, layout);
+  // Render the plot to the div tag with id "line_graph"
+  Plotly.newPlot("line_graph", traceArray, layout);
 }
+
+/////////////////
+
 
 function make_bar1(bar_garage) {
 
