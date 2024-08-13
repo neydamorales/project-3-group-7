@@ -82,64 +82,21 @@ class SQLHelper():
         data = df.to_dict(orient="records")
         return(data)
 
-    def get_table(self, min_attempts, region):
-
-        # switch on user_region
-        if region == 'All':
-            where_clause = "and 1=1"
-        else:
-            where_clause = f"and region = '{region}'"
+    def get_map(self, min_year_built):
 
         # build the query
+        
         query = f"""
             SELECT
-                name,
-                full_name,
-                region,
+                city,
                 latitude,
                 longitude,
-                launch_attempts,
-                launch_successes,
-                launch_attempts - launch_successes as launch_failures
+                yearBuilt,
+                latestPrice
             FROM
-                launchpads
+                austin_housing
             WHERE
-                launch_attempts >= {min_attempts}
-                {where_clause}
-            ORDER BY
-                launch_attempts DESC;
-        """
-
-        df = pd.read_sql(text(query), con = self.engine)
-        data = df.to_dict(orient="records")
-        return(data)
-
-    def get_map(self, min_attempts, region):
-
-        # switch on user_region
-        if region == 'All':
-            where_clause = "and 1=1"
-        else:
-            where_clause = f"and region = '{region}'"
-
-        # build the query
-        query = f"""
-            SELECT
-                name,
-                full_name,
-                region,
-                latitude,
-                longitude,
-                launch_attempts,
-                launch_successes,
-                launch_attempts - launch_successes as launch_failures
-            FROM
-                launchpads
-            WHERE
-                launch_attempts >= {min_attempts}
-                {where_clause}
-            ORDER BY
-                launch_attempts DESC;
+                yearBuilt >= {min_year_built}
         """
 
         df = pd.read_sql(text(query), con = self.engine)

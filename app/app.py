@@ -42,10 +42,10 @@ def get_dashboard(min_year_built):
     }
     return(jsonify(data))
 
-@app.route("/api/v1.0/get_map/<min_attempts>/<region>")
-def get_map(min_attempts, region):
-    min_attempts = int(min_attempts) # cast to int
-    map_data = sql.get_map(min_attempts, region)
+@app.route("/api/v1.0/get_map/<min_year_built>")
+def get_map(min_year_built):
+    min_year_built = int(min_year_built) # cast to int
+    map_data = sql.get_map(min_year_built)
 
     return(jsonify(map_data))
 

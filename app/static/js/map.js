@@ -29,7 +29,7 @@ function createMap(data) {
 
     // make marker
     let marker = L.marker(point);
-    let popup = `<h1>${row.full_name}</h1><hr><h2>${row.region}</h2><hr><h3>${row.launch_attempts} | ${row.launch_successes}</h3>`;
+    let popup = `<h1>${row.city}</h1><hr><h2>${row.min_year_built}</h2>`;
     marker.bindPopup(popup);
     markers.addLayer(marker);
 
@@ -65,7 +65,7 @@ function createMap(data) {
   d3.select("#map-container").html("<div id='map'></div>");
 
   let myMap = L.map("map", {
-    center: [40.7128, -74.0059],
+    center: [30.2672, -97.7431],
     zoom: 5,
     layers: [street, markers]
   });
@@ -78,13 +78,13 @@ function createMap(data) {
 
 function do_work() {
   // extract user input
-  let min_launches = d3.select("#launch_filter").property("value");
-  min_launches = parseInt(min_launches);
-  let region = d3.select("#region_filter").property("value");
+  let min_year_built = d3.select("#launch_filter").property("value");
+  min_year_built = parseInt(min_year_built);
+  
 
   // We need to make a request to the API
-  let url = `/api/v1.0/get_map/${min_launches}/${region}`;
-
+  let url = `/api/v1.0/get_map/${min_year_built}`;
+  
   // make TWO requests
   d3.json(url).then(function (data) {
     createMap(data);
