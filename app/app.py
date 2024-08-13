@@ -41,10 +41,12 @@ def get_dashboard(min_year_built):
 
     bar_garage = sql.get_bar_garage(min_year_built)
     bar_heat = sql.get_bar_heat(min_year_built)
+    line_hoa =sql.get_hoa_raw(min_year_built)
 
     data = {
         "bar_garage": bar_garage,
         "bar_heat": bar_heat,
+        "line_hoa": line_hoa,
     }
     return(jsonify(data))
 
