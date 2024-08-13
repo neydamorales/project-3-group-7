@@ -39,10 +39,12 @@ def works_cited():
 def get_dashboard(min_year_built):
     min_year_built = int(min_year_built) # cast to int
 
-    bar_data = sql.get_bar_garage(min_year_built)
+    bar_garage = sql.get_bar_garage(min_year_built)
+    bar_heat = sql.get_bar_heat(min_year_built)
 
     data = {
-        "bar_data": bar_data,
+        "bar_garage": bar_garage,
+        "bar_heat": bar_heat,
     }
     return(jsonify(data))
 

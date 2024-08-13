@@ -48,14 +48,16 @@ class SQLHelper():
                 austin_housing
             WHERE
                 yearBuilt >= {min_year_built}
+                AND
+                homeType != "Vacant Land"
             GROUP BY
                 homeType
             ORDER BY
                 percent_with_garage DESC;
         """
 
-        df = pd.read_sql(text(query), con = self.engine)
-        data = df.to_dict(orient="records")
+        garage_df = pd.read_sql(text(query), con = self.engine)
+        data = garage_df.to_dict(orient="records")
         return(data)
 
     # Bar Graph for houses with heat
@@ -72,14 +74,16 @@ class SQLHelper():
                 austin_housing
             WHERE
                 yearBuilt >= {min_year_built}
+                AND
+                homeType != "Vacant Land"
             GROUP BY
                 homeType
             ORDER BY
                 percent_with_heating DESC;
         """
 
-        df = pd.read_sql(text(query), con = self.engine)
-        data = df.to_dict(orient="records")
+        heat_df = pd.read_sql(text(query), con = self.engine)
+        data = heat_df.to_dict(orient="records")
         return(data)
 
     def get_map(self, min_year_built):
