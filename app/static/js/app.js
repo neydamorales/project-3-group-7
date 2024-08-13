@@ -1,15 +1,15 @@
 function do_work() {
   // extract user input
-  let min_launches = d3.select("#launch_filter").property("value");
-  min_launches = parseInt(min_launches);
-  let region = d3.select("#region_filter").property("value");
+  let min_year_built = d3.select("#min_year_built_filter").property("value");
+  min_year_built = parseInt(min_year_built);
 
   // We need to make a request to the API
-  let url = `/api/v1.0/get_dashboard/${min_launches}/${region}`;
+  let url = `/api/v1.0/get_dashboard/${min_year_built}`;
   d3.json(url).then(function (data) {
 
     // create the graphs
-    make_bar(data.bar_data);
+    make_bar1(data.bar_garage);
+    make_bar2(data.bar_heat);
     make_pie(data.pie_data);
     make_table(data.table_data)
   });
@@ -67,43 +67,31 @@ function make_pie(filtered_data) {
   Plotly.newPlot("pie_chart", data, layout);
 }
 
-function make_bar_garage(filtered_data) {
+function make_bar1(bar_garage) {
 
   // extract the x & y values for our bar chart
-  let bar_x = get_bar_garage.map(x => x.name);
-  let bar_text = get_bar_garage.map(x => x.homeType);
-  let bar_y = get_bar_garage.map(x => x.percent_with_garage);
+  let bar_x = bar_garage.map(x => x.homeType);
+  let bar_text = bar_garage.map(x => x.homeType);
+  let bar_y = bar_garage.map(x => x.percent_with_garage);
 
-  // Trace1 for the Launch Attempts
+  // Trace1 for Garages
   let trace1 = {
     x: bar_x,
-    y: bar_y1,
+    y: bar_y,
     type: 'bar',
     marker: {
       color: "skyblue"
     },
     text: bar_text,
-    name: "Attempts"
   };
 
-  // Trace 2 for the Launch Successes
-  let trace2 = {
-    x: bar_x,
-    y: bar_y2,
-    type: 'bar',
-    marker: {
-      color: "firebrick"
-    },
-    text: bar_text,
-    name: "Successes"
-  };
 
   // Create data array
-  let data = [trace1, trace2];
+  let data = [trace1];
 
   // Apply a title to the layout
   let layout = {
-    title: "SpaceX Launch Results",
+    title: "% of Home Type With A Garage Per Year Built",
     barmode: "group",
     // Include margins in the layout so the x-tick labels display correctly
     margin: {
@@ -116,7 +104,48 @@ function make_bar_garage(filtered_data) {
   };
 
   // Render the plot to the div tag with id "plot"
-  Plotly.newPlot("bar_chart", data, layout);
+  Plotly.newPlot("bar_chart_garage", data, layout);
+
+}
+
+function make_bar2(bar_heat) {
+
+  // extract the x & y values for our bar chart
+  let bar_x = bar_heat.map(x => x.homeType);
+  let bar_text = bar_heat.map(x => x.homeType);
+  let bar_y = bar_heat.map(x => x.percent_with_heating);
+
+  // Trace1 for Garages
+  let trace1 = {
+    x: bar_x,
+    y: bar_y,
+    type: 'bar',
+    marker: {
+      color: "skyblue"
+    },
+    text: bar_text,
+  };
+
+
+  // Create data array
+  let data = [trace1];
+
+  // Apply a title to the layout
+  let layout = {
+    title: "% of Home Type With Heat Per Year Built",
+    barmode: "group",
+    // Include margins in the layout so the x-tick labels display correctly
+    margin: {
+      l: 50,
+      r: 50,
+      b: 200,
+      t: 50,
+      pad: 4
+    }
+  };
+
+  // Render the plot to the div tag with id "plot"
+  Plotly.newPlot("bar_chart_heat", data, layout);
 
 }
 
